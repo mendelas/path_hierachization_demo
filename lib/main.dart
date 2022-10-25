@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'main_model.dart';
 import 'package:provider/provider.dart';
 
+import 'second_page.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
 
+  //String nameText='';
 
   @override
   Widget build(BuildContext context){
@@ -27,26 +30,54 @@ class MyApp extends StatelessWidget{
                         fontSize:30,
                       ),
                     ),
-                    ElevatedButton(
-                      child: Text('ボタン'),
-                      /*if(model.ikenoText =='IKENO'){
-                        onPressed: () {
-                          model.changeikenoText();
-                        }
-                      }else{
-                        onPressed: () {
-                          model.changekakkoiiText();
-                        }
-                      }*/
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        /*TextField(
+                          onChanged:(text){
+                            nameText = text;
+                          },
+                        ),*/
+                        /*FloatingActionButton(
+                            onPressed:(){
+                              int insertIndex = model.todoList.length;
+                              model.createTodo("");
+                              _listKey.currentState?.insertItem(insertIndex,
+                                  duration: const Duration(milliseconds: 300));
 
-                      onPressed:(){
-                        if(model.ikenoText =='IKENO'){
-                          model.changeikenoText();
-                        }else{
-                          model.changekakkoiiText();
-                        }
-                      }
+                              //todoModel.todoList[todoModel.todoList.length - 1].focusNode.requestFocus();
+                            }
+                        )*/
+                        ElevatedButton(
+                          child: Text('ボタン'),
+                          /*if(model.ikenoText =='IKENO'){
+                            onPressed: () {
+                              model.changeikenoText();
+                            }
+                          }else{
+                            onPressed: () {
+                              model.changekakkoiiText();
+                            }
+                          }*/
 
+                          /*onPressed:(){
+                            if(model.ikenoText =='IKENO'){
+                              model.changeikenoText();
+                            }else{
+                              model.changekakkoiiText();
+                            }
+                          }*/
+
+
+                          onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context)=>SecondPage(nameText),)
+                            );
+                          },
+
+                        ),
+                      ],
                     ),
                   ]
                 ),
