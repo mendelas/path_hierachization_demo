@@ -1,91 +1,71 @@
-import 'package:flutter/material.dart';
-import 'main_model.dart';
-import 'package:provider/provider.dart';
+import 'export.dart';
+import 'text.dart';
 
-import 'second_page.dart';
+void main() {
+  runApp(const MyApp());
+}
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget{
-
-  //String nameText='';
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
-      title:'path provider demo',
-      home:ChangeNotifierProvider<MainModel>(
-        create: (_) =>MainModel(),
-        child: Scaffold(
-          appBar:AppBar(
-            title: Text('コリアンダー'),
-          ),
-          body:Consumer<MainModel>(builder: (context,model,child) {
-              return Center(
-                child:Column(
-                  children:[
-                    Text(
-                      model.ikenoText,
-                      style: TextStyle(
-                        fontSize:30,
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        /*TextField(
-                          onChanged:(text){
-                            nameText = text;
-                          },
-                        ),*/
-                        /*FloatingActionButton(
-                            onPressed:(){
-                              int insertIndex = model.todoList.length;
-                              model.createTodo("");
-                              _listKey.currentState?.insertItem(insertIndex,
-                                  duration: const Duration(milliseconds: 300));
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      // Page1をラップする。text.dartで作成した値や関数を呼び出せる
+      // ChangeNotifierProvider<他のページに書いたモデルのクラス名>と書く
+      home: ChangeNotifierProvider<TextProvider>(
+          create: (context) => TextProvider(), child: Page1()),
+    );
+  }
+}
 
-                              //todoModel.todoList[todoModel.todoList.length - 1].focusNode.requestFocus();
-                            }
-                        )*/
-                        ElevatedButton(
-                          child: Text('ボタン'),
-                          /*if(model.ikenoText =='IKENO'){
-                            onPressed: () {
-                              model.changeikenoText();
-                            }
-                          }else{
-                            onPressed: () {
-                              model.changekakkoiiText();
-                            }
-                          }*/
+class Page1 extends StatelessWidget {
+  const Page1({Key? key}) : super(key: key);
 
-                          /*onPressed:(){
-                            if(model.ikenoText =='IKENO'){
-                              model.changeikenoText();
-                            }else{
-                              model.changekakkoiiText();
-                            }
-                          }*/
-
-
-                          onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context)=>SecondPage(nameText),)
-                            );
-                          },
-
-                        ),
-                      ],
-                    ),
-                  ]
-                ),
-              );
-            }
-          ),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // Provider.of<他のページに書いたモデルのクラス名>(context).定義した変数「(例)final String 変数名」
+        title: Text(Provider.of<TextProvider>(context).textValue),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This,
+      body: Column(
+        children: [
+          Page2(),
+          Page3()
+        ],
       ),
     );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TextButtonを押した時やTextFieldで値が変わる場合(listen: false)を追記する必要がある
+    return TextField(
+      onChanged: (newText){
+        // textValue = newText
+        Provider.of<TextProvider>(context, listen: false).TextChanged(newText);
+        print(Provider.of<TextProvider>(context, listen: false).textValue);
+      },
+    );
+  }
+}
+
+class Page3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 保存された文字を画面に表示する
+    return Text(Provider.of<TextProvider>(context).textValue);
   }
 }
