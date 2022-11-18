@@ -1,6 +1,12 @@
+/*import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'todo.dart';
+
 // ChangeNotifierは、class内の値が変更した場合に知らせる機能を付与するという意味
 class TextProvider extends ChangeNotifier {
+
   // フォームから入ってくる値を格納する変数を定義
   String textValue = 'text';
   // 関数に「String型のtext」という引数を書く
@@ -12,4 +18,4 @@ class TextProvider extends ChangeNotifier {
     // ChangeNotifierを使用しているclassに使用できる関数、値が変わったことを他のページにも知らせて更新させる役目をもっている
     notifyListeners();
   }
-}
+}*/

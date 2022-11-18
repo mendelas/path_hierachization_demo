@@ -1,11 +1,76 @@
 import 'export.dart';
 import 'text.dart';
+import 'cartmodel.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartModel(),
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
+      home:ChangeNotifierProvider<CartModel>(
+        create: (_) => CartModel(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'ikenosan',
+            ),
+          ),
+          body: Consumer<CartModel>(builder: (context, model, child) {
+            return Center(
+              child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      height: 80,
+                      width: double.infinity,
+                      alignment: Alignment.centerLeft,
+                      child: Text("ToDo List",
+                          style: Theme.of(context).textTheme.headline4),
+                    ),
+                    Expanded(
+                        child: Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: ListView(
+
+
+                              ),
+
+
+                             )
+
+
+                        )
+                    )
+                  ]
+              ),
+            );
+          }
+          ),
+        ),
+      ),
+    );
+  }
+
+}
+
+/*class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -16,9 +81,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // Page1をラップする。text.dartで作成した値や関数を呼び出せる
-      // ChangeNotifierProvider<他のページに書いたモデルのクラス名>と書く
+      // ChangeNotifierProvider<他
+      // のページに書いたモデルのクラス名>と書く
       home: ChangeNotifierProvider<TextProvider>(
           create: (context) => TextProvider(), child: Page1()),
+
     );
   }
 }
@@ -68,4 +135,4 @@ class Page3 extends StatelessWidget {
     // 保存された文字を画面に表示する
     return Text(Provider.of<TextProvider>(context).textValue);
   }
-}
+}*/
